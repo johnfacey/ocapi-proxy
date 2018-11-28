@@ -1,0 +1,28 @@
+{
+  "name": "ocapi-proxy",
+  "version": "1.0.0",
+  "description": "SFCC OCAPI Proxy ",
+  "main": "index.js",
+  "scripts": {
+    "start" : "node index.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "sfcc",
+    "ocapi",
+    "demandware",
+    "open",
+    "commerce",
+    "node",
+    "proxy"
+  ],
+  "author": "John K. Facey II",
+  "license": "ISC",
+  "dependencies": {
+    "body-parser": "^1.18.3",
+    "btoa": "^1.2.1",
+    "express": "^4.16.4",
+    "jsonfile": "^5.0.0",
+    "request": "^2.88.0"
+  }
+}
