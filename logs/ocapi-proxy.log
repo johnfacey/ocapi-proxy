@@ -1,0 +1,8 @@
+{"level":"info"}
+{"level":"info"}
+{"message":"{\"_v\":\"18.8\",\"fault\":{\"arguments\":{\"path\":\"/https:/dev24-na-pfsweb.demandware.net/s/SiteGenesis/dw/shop/v18_8/customers/auth\"},\"type\":\"ResourcePathNotFoundException\",\"message\":\"Resource '/https:/dev24-na-pfsweb.demandware.net/s/SiteGenesis/dw/shop/v18_8/customers/auth' is unknown. Please provide a valid resource.\"}}","level":"info"}
+{"message":"jsonBody","level":"info"}
+{"level":"info"}
+{"level":"info"}
+{"message":"{\"_v\":\"18.8\",\"_type\":\"customer\",\"auth_type\":\"guest\",\"customer_id\":\"bcQy4BuqqwrKAn37VQ9TrOuapK\",\"preferred_locale\":\"en_US\"}","level":"info"}
+{"message":"jsonBody","level":"info"}

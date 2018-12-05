@@ -1,11 +1,17 @@
 {
   "name": "ocapi-proxy",
-  "version": "1.0.0",
-  "description": "SFCC OCAPI Proxy ",
+  "version": "1.0.1",
+  "description": "Salesforce Commerce Cloud OCAPI Proxy Router",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/johnfacey/ocapi-proxy.git"
+  },
   "main": "index.js",
   "scripts": {
-    "start" : "node index.js",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "start": "node index.js",
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build-fs": "node build.js",
+    "postinstall": "npm run-script build-fs"
   },
   "keywords": [
     "sfcc",
@@ -17,12 +23,14 @@
     "proxy"
   ],
   "author": "John K. Facey II",
-  "license": "ISC",
+  "license": "MIT",
   "dependencies": {
     "body-parser": "^1.18.3",
     "btoa": "^1.2.1",
     "express": "^4.16.4",
+    "fs": "0.0.1-security",
     "jsonfile": "^5.0.0",
-    "request": "^2.88.0"
+    "request": "^2.88.0",
+    "winston": "^3.1.0"
   }
 }

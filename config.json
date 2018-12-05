@@ -1,6 +1,7 @@
 {
     "server": "{instance}.demandware.net",
     "site_id": "SiteGenesis",
+    "version" : "v18_8",
     "client_id" : "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
     "port" : 8080
 }
