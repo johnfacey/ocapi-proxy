@@ -20,8 +20,11 @@ writeConfig = function () {
     });
 
     console.log("Creating config.json");
-
-    fs.mkdirSync("./logs");
+    try {
+        fs.mkdirSync("./logs");
+        } catch (err) {
+            
+        }
 };
 
 writeConfig();

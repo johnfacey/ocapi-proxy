@@ -13,7 +13,11 @@ var port = 8080;
 
 var file = './config.json';
 
+try {
 fs.mkdirSync("./logs");
+} catch (err) {
+    
+}
 
 var logger = winston.createLogger({
     transports: [
@@ -49,7 +53,7 @@ readConfig = function () {
         }
     } catch (err) {
         console.error(err);
-        logger.err(err);
+        logger.error(err);
         writeConfig();
     }
 

@@ -1,6 +1,6 @@
 {
   "name": "ocapi-proxy",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "description": "Salesforce Commerce Cloud OCAPI Proxy Router",
   "repository": {
     "type": "git",
@@ -15,10 +15,14 @@
   },
   "keywords": [
     "sfcc",
+    "salesforce",
     "ocapi",
+    "express",
     "demandware",
     "open",
     "commerce",
+    "commerce cloud",
+    "open commerce",
     "node",
     "proxy"
   ],
