@@ -11,14 +11,11 @@ var site_id = "SiteGenesis";
 var version = "v18_8";
 var port = 8080;
 
-var file = './config.json';
-
 try {
-fs.mkdirSync("./logs");
+    fs.mkdirSync("./logs");
 } catch (err) {
-    
-}
 
+}
 var logger = winston.createLogger({
     transports: [
         new winston.transports.Console(),
@@ -27,6 +24,20 @@ var logger = winston.createLogger({
         })
     ]
 });
+
+var file = './config.json';
+try {
+    if (process.argv[2]){
+        file = process.argv[2];
+    }
+} catch (err) {
+    file = './config.json';
+}
+
+console.log("Loading config file: " + file);
+logger.info("Loading config file: " + file);
+
+
 
 readConfig = function () {
     try {
