@@ -4,6 +4,7 @@ var bodyParser = require('body-parser');
 var jsonfile = require('jsonfile');
 var fs = require('fs');
 var winston = require('winston');
+var chalk = require("chalk");
 
 var app = express();
 var server = "";
@@ -11,10 +12,11 @@ var site_id = "SiteGenesis";
 var version = "v18_8";
 var port = 8080;
 
+var message = "";
 try {
     fs.mkdirSync("./logs");
 } catch (err) {
-
+    console.log(chalk.red('Logs directory already exists'));
 }
 var logger = winston.createLogger({
     transports: [
@@ -34,8 +36,9 @@ try {
     file = './config.json';
 }
 
-console.log("Loading config file: " + file);
-logger.info("Loading config file: " + file);
+message = "Loading config file: " + file;
+console.log(chalk.blue(message));
+logger.info(message);
 
 
 
@@ -46,8 +49,9 @@ readConfig = function () {
             jsonfile.readFile(file, function (err, obj) {
                 config = obj;
                 if (config == undefined) { //file invalid
-                    console.log("Update the config.json or use sample-config.json");
-                    logger.info("Update the config.json or use sample-config.json");
+                    message = "Update the config.json or use sample-config.json";
+                    console.log(chalk.blue(message));
+                    logger.info(message);
                     return false;
                 } else {
                     port = config.port;
@@ -55,7 +59,7 @@ readConfig = function () {
                     server = config.server;
                     version = config.version;
                     client_id = config.client_id;
-                    app.listen(port, () => console.log('OCAPI Proxy listening on port: ' + port));
+                    app.listen(port, () => console.log(chalk.blue('OCAPI Proxy listening on port: ' + port)));
                     return true;
                 }
             });
@@ -87,9 +91,9 @@ writeConfig = function () {
             logger.error(err);
         }
     });
-
-    console.log("Creating config.json");
-    logger.info("Creating config.json");
+    message = "Creating config.json";
+    console.log(chalk.blue(message));
+    logger.info(message);
 };
 
 function ProxyCall(req, resp) {
@@ -139,6 +143,7 @@ function ProxyCall(req, resp) {
             if (!error && response.statusCode == 200) {}
 
             logger.info(body);
+            console.log(chalk.green(body));
             var jsonBody = JSON.parse(body);
 
             if (response.headers.hasOwnProperty("authorization")) {
@@ -150,11 +155,11 @@ function ProxyCall(req, resp) {
             }
             jsonBody = JSON.stringify(jsonBody);
 
-            console.log(jsonBody);
+            //console.log(jsonBody);
             proxyResponse.send(jsonBody);
 
         } catch (err) {
-            console.log(err);
+            console.log(chalk.red(err));
             logger.error(err);
         }
 
