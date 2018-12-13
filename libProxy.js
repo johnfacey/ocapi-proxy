@@ -3,7 +3,6 @@ var express = require('express');
 var bodyParser = require('body-parser');
 var jsonfile = require('jsonfile');
 var fs = require('fs');
-var winston = require('winston');
 var chalk = require("chalk");
 
 var app = express();

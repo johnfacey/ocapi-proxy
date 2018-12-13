@@ -2,7 +2,7 @@
 
 ![](https://img.shields.io/badge/Salesforce-OCAPIProxy-blue.svg)  
 
-![](https://img.shields.io/badge/Version-1.0.5-green.svg)
+![](https://img.shields.io/badge/Version-1.0.6-green.svg)
 
 This project will serve as a local NodeJS based Proxy server that will forward requests to an Salesforce Commerce Cloud OCAPI instance. 
 This can be used for purposes such as testing 3rd party apps using OCAPI as well as integration for mobile/browser apps. 
