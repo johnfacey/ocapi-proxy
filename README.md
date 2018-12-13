@@ -2,7 +2,7 @@
 
 ![](https://img.shields.io/badge/Salesforce-OCAPIProxy-blue.svg)  
 
-![](https://img.shields.io/badge/Version-1.0.3-green.svg)
+![](https://img.shields.io/badge/Version-1.0.5-green.svg)
 
 This project will serve as a local NodeJS based Proxy server that will forward requests to an Salesforce Commerce Cloud OCAPI instance. 
 This can be used for purposes such as testing 3rd party apps using OCAPI as well as integration for mobile/browser apps. 
@@ -74,6 +74,7 @@ Example:
 ## Deployment/Development
 
 This is currently a work in progress. Please report any issues you find.
+Latest: Fixes to logging added dates to log files.
 Updated contact info for [Github](https://github.com/johnfacey) and [Twitter](https://twitter.com/johnfacey).
 
 ## OCAPI Output Modifications
@@ -88,7 +89,6 @@ The Proxy will generate logs where the current proxy has been executed in the lo
 
 * [**NodeJS**](https://nodejs.org) 
 * [**Express**](https://expressjs.com) - Minimalist Web Framework for NodeJS
-* [**Winston**](https://www.npmjs.com/package/winston) - A logger for just about everything
 * [**jsonfile**](https://www.npmjs.com/package/jsonfile) - read/write JSON files in NodeJS
 
 ## Authors

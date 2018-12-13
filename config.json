@@ -1,5 +1,5 @@
 {
-    "server": "{instance}.demandware.net",
+    "server": "dev24-na-pfsweb.demandware.net",
     "site_id": "SiteGenesis",
     "version" : "v18_8",
     "client_id" : "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",

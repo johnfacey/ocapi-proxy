@@ -12,20 +12,24 @@ var site_id = "SiteGenesis";
 var version = "v18_8";
 var port = 8080;
 
+var now = new Date();
+
+var logDate = now.getFullYear() +"-"+now.getDay()+"-"+now.getDate();
+
 var message = "";
+var logFileName = "./logs/ocapi-proxy-"+logDate+".log";
 try {
     fs.mkdirSync("./logs");
 } catch (err) {
     console.log(chalk.red('Logs directory already exists'));
 }
-var logger = winston.createLogger({
-    transports: [
-        new winston.transports.Console(),
-        new winston.transports.File({
-            filename: './logs/ocapi-proxy.log'
-        })
-    ]
-});
+
+writeLog = function(logMessage) {
+    fs.appendFileSync(logFileName, logMessage +"\r\n", function (err) {
+        if (err) throw err;
+    
+      });
+};
 
 var file = './config.json';
 try {
@@ -38,8 +42,9 @@ try {
 
 message = "Loading config file: " + file;
 console.log(chalk.blue(message));
-logger.info(message);
+writeLog(message);
 
+//writeLog(l);
 
 
 readConfig = function () {
@@ -51,7 +56,7 @@ readConfig = function () {
                 if (config == undefined) { //file invalid
                     message = "Update the config.json or use sample-config.json";
                     console.log(chalk.blue(message));
-                    logger.info(message);
+                    writeLog(message);
                     return false;
                 } else {
                     port = config.port;
@@ -67,8 +72,8 @@ readConfig = function () {
             writeConfig();
         }
     } catch (err) {
-        console.error(err);
-        logger.error(err);
+        console.log(err);
+        writeLog(err);
         writeConfig();
     }
 
@@ -87,13 +92,13 @@ writeConfig = function () {
     };
     jsonfile.writeFile(file, obj, function (err) {
         if (err != null) {
-            console.error(err);
-            logger.error(err);
+            console.log(chalk.red(err));
+            writeLog(err);
         }
     });
     message = "Creating config.json";
     console.log(chalk.blue(message));
-    logger.info(message);
+    writeLog(message);
 };
 
 function ProxyCall(req, resp) {
@@ -138,11 +143,13 @@ function ProxyCall(req, resp) {
     }
     //}
 
+    request(options, callback);
+
     function callback(error, response, body) {
         try {
             if (!error && response.statusCode == 200) {}
 
-            logger.info(body);
+            writeLog(body);
             console.log(chalk.green(body));
             var jsonBody = JSON.parse(body);
 
@@ -160,10 +167,10 @@ function ProxyCall(req, resp) {
 
         } catch (err) {
             console.log(chalk.red(err));
-            logger.error(err);
+            writeLog(err);
         }
 
-        request(options, callback);
+       // request(options, callback);
 
     }
 }
