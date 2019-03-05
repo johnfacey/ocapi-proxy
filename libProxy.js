@@ -4,6 +4,7 @@ var bodyParser = require('body-parser');
 var jsonfile = require('jsonfile');
 var fs = require('fs');
 var chalk = require("chalk");
+var ua = require('universal-analytics');
 
 var app = express();
 var server = "";
@@ -11,6 +12,7 @@ var site_id = "SiteGenesis";
 var version = "v18_8";
 var port = 8080;
 
+var UA = "";
 var now = new Date();
 
 var logDate = now.getFullYear() +"-"+now.getDay()+"-"+now.getDate();
@@ -63,7 +65,12 @@ readConfig = function () {
                     server = config.server;
                     version = config.version;
                     client_id = config.client_id;
-                    app.listen(port, () => console.log(chalk.blue('OCAPI Proxy listening on port: ' + port)));
+                    if (config.UA != undefined && config.UA != "") {
+                        UA = config.UA;
+                    }
+                    app.listen(port, () => {
+                        return console.log(chalk.blue('OCAPI Proxy listening on port: ' + port));
+                    });
                     return true;
                 }
             });
@@ -87,7 +94,8 @@ writeConfig = function () {
         "site_id": "SiteGenesis",
         "version": "v18_8",
         "client_id": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
-        "port": 8080
+        "port": 8080,
+        "UA" : ""
     };
     jsonfile.writeFile(file, obj, function (err) {
         if (err != null) {
@@ -143,6 +151,17 @@ function ProxyCall(req, resp) {
     //}
 
     request(options, callback);
+    if (UA != "") {
+
+        try {
+            var visitor = ua(UA);//UA-XXXX-XX
+            visitor.event(site_id,callurl).send();
+
+        } catch (err) {
+            console.log(chalk.red(err));
+            writeLog(err);
+        }
+    }
 
     function callback(error, response, body) {
         try {

@@ -2,7 +2,7 @@
 
 ![](https://img.shields.io/badge/Salesforce-OCAPIProxy-blue.svg)  
 
-![](https://img.shields.io/badge/Version-1.0.6-green.svg)
+[![NPM](https://nodei.co/npm/ocapi-proxy.png?downloads=true&downloadRank=true&stars=true)](https://nodei.co/npm/ocapi-proxy/)
 
 This project will serve as a local NodeJS based Proxy server that will forward requests to an Salesforce Commerce Cloud OCAPI instance. 
 This can be used for purposes such as testing 3rd party apps using OCAPI as well as integration for mobile/browser apps. 
@@ -14,7 +14,7 @@ Coresponding Mobile App: {future link}
 
 Edit the config.json to match the server you are using. 
 If you are using a service such as https://ngrok.com you may need to add the url to your Business Manager allowed origins.
-**NOTE:** This package only forwards OCAPI requests from one point to another. The main purpose is for routing data around CORS and is typically useful for Mobile Applications.
+**NOTE:** This package only forwards OCAPI requests from one point to another. The main purpose is for routing data around CORS and is typically useful for Mobile Applications. x-dw-client-id as a header attribute must be used instead of client_id as a url parameter.
 
 ## Prerequisites
 ```
@@ -56,7 +56,8 @@ Example:
     "site_id": "SiteGenesis",
     "version": "v18_8",
     "client_id": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
-    "port": 8080
+    "port": 8080,
+    "UA": "UA-XXXX-XXXX"  //This is optional can remove or leave blank.
 };
 ```
 ## OCAPI Commands
@@ -81,6 +82,12 @@ Updated contact info for [Github](https://github.com/johnfacey) and [Twitter](ht
 
 Currently **Authorization** and **ETag**  headers are returned into the body from the output proxy rather than in the header.
 
+## Universal Analytics
+
+Updated for: ![](https://img.shields.io/badge/Version-1.0.7-green.svg)
+
+The Proxy will communicate with Google Universal Analytics if a "UA" attribute is found in the config file. You may leave this attribute blank or remove it from the config. Currently all UA requests are send as a page view with the url of the Commerce Cloud Instance.
+
 ## Logging
 
 The Proxy will generate logs where the current proxy has been executed in the logs directory.
@@ -90,6 +97,7 @@ The Proxy will generate logs where the current proxy has been executed in the lo
 * [**NodeJS**](https://nodejs.org) 
 * [**Express**](https://expressjs.com) - Minimalist Web Framework for NodeJS
 * [**jsonfile**](https://www.npmjs.com/package/jsonfile) - read/write JSON files in NodeJS
+* [**universal-analytics**](https://www.npmjs.com/package/universal-analytics) - Google Universal Analytics
 
 ## Authors
 

@@ -3,5 +3,6 @@
     "site_id": "SiteGenesis",
     "version" : "v18_8",
     "client_id" : "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
-    "port" : 8080
+    "port" : 8080,
+    "UA" : "UA-XXXX-XX"
 }
