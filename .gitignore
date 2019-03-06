@@ -1,0 +1,5 @@
+config.json
+node_modules
+.vscode
+logs
+local.json

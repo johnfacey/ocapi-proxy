@@ -155,7 +155,7 @@ function ProxyCall(req, resp) {
 
         try {
             var visitor = ua(UA);//UA-XXXX-XX
-            visitor.event(site_id,callurl).send();
+            visitor.event("OCAPI",callurl).send();
 
         } catch (err) {
             console.log(chalk.red(err));

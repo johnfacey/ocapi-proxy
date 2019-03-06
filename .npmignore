@@ -1,0 +1,11 @@
+local.json
+.*
+*.swp
+*~
+*.iml
+.*.haste_cache.*
+.DS_Store
+npm-debug.log
+node_modules
+scripts
+src
