@@ -1,14 +1,14 @@
 {
   "name": "ocapi-proxy",
-  "version": "1.0.8",
+  "version": "1.0.9",
   "description": "Salesforce Commerce Cloud OCAPI Proxy Router",
   "repository": {
     "type": "git",
     "url": "https://github.com/johnfacey/ocapi-proxy.git"
   },
-  "main": "index.js",
+  "main": "ocapi-proxy.js",
   "scripts": {
-    "start": "node index.js $*",
+    "start": "node ocapi-proxy.js",
     "test": "echo \"Error: no test specified\" && exit 1",
     "build-fs": "node build.js",
     "postinstall": "npm run-script build-fs"
@@ -36,6 +36,7 @@
     "express": "^4.16.4",
     "fs": "0.0.1-security",
     "jsonfile": "^5.0.0",
+    "pm2": "^3.5.1",
     "universal-analytics": "^0.4.20"
   }
 }

@@ -1,8 +1,1 @@
-{
-    "server": "{instance}.demandware.net",
-    "site_id": "SiteGenesis",
-    "version" : "v18_8",
-    "client_id" : "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
-    "port" : 8080,
-    "UA" : "UA-XXXX-XX"
-}
+{"server":"yoursandbox.demandware.net","site_id":"SiteGenesis","version":"v18_8","client_id":"aaaaaaaaaaaaaaaaaaaaaaaaaaaaaa","port":8080}

@@ -25,6 +25,7 @@ Required:
 Optional:
     Postman or another rest API tool.
     ngrok - If you need to get a public url to your localhost
+    pm2 - Process Manager
 ```
 ## Installing
 ```
@@ -35,16 +36,23 @@ npm install ocapi-proxy
 
 From the command line: 
 ```
-npm start or node index.js
+npm start or node ocapi-proxy.js
 
-or
+or with PM2 Support (npm install pm2 -g)
 
-npm start [config.json] -- full path to config file
 ```
+
+Example:
+```
+pm2 start ocapi-proxy.js
+pm2 stop ocapi-proxy.js
+pm2 delete ocapi-proxy.js
+```
+![Postman Example](./examples/pm2-example.png)
 
 You will need a config.json (one will be generated on first launch)
 To edit the port, domain, etc.. modify the config.json file. 
-server: your Salesforce Commcerce Cloud server (currently all calls are https)
+server: your SalesForce Commerce Cloud server (currently all calls are https)
 site_id: SFCC Site ID
 version: SFCC OCAPI Version
 port: Port that proxy listens for requests.
@@ -80,11 +88,11 @@ Updated contact info for [Github](https://github.com/johnfacey) and [Twitter](ht
 
 ## OCAPI Output Modifications
 
-Currently **Authorization** and **ETag**  headers are returned into the body from the output proxy rather than in the header.
+Currently **Authorization** and **ETag**  headers are returned into the body from the output proxy rather than in the header. These are not needed in 19.X
 
 ## Universal Analytics
 
-Updated for: ![](https://img.shields.io/badge/Version-1.0.8-green.svg)
+Updated for: ![](https://img.shields.io/badge/Version-1.0.9-green.svg)
 
 The Proxy will communicate with Google Universal Analytics if a "UA" attribute is found in the config file. You may leave this attribute blank or remove it from the config. Currently all UA requests are send as a event tag with the url of the Commerce Cloud Instance.
 
@@ -115,5 +123,6 @@ See the [LICENSE.md](LICENSE.md) file for details
 
 * [**Salesforce Commerce Cloud**](https://www.salesforce.com/products/commerce-cloud/overview)
 * [**NodeJS**](https://nodejs.org) 
+* [**PM2**](http://pm2.keymetrics.io/) 
 * [**Visual Studio Code**](https://code.visualstudio.com)
 * [**ngrok**](https://ngrok.com)
