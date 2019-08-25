@@ -111,7 +111,8 @@ The Proxy will generate logs where the current proxy has been executed in the lo
 
 * **John Facey II** - *Initial work*  
 [![GitHub followers](https://img.shields.io/github/followers/johnfacey.svg?label=Follow&style=social)](https://github.com/johnfacey)
-![https://twitter.com/johnfacey](https://img.shields.io/twitter/follow/johnfacey.svg?label=Follow&style=social)
+[![Twitter followers](https://img.shields.io/twitter/follow/johnfacey.svg?label=Follow&style=social)](https://twitter.com/johnfacey)
+
 
 ## License
 
