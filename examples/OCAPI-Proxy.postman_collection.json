@@ -31,12 +31,12 @@
 					"basic": [
 						{
 							"key": "password",
-							"value": "Pfsweb11!",
+							"value": "XXXXXX",
 							"type": "string"
 						},
 						{
 							"key": "username",
-							"value": "jfacey@pfsweb.com",
+							"value": "user@demandware.com",
 							"type": "string"
 						},
 						{
