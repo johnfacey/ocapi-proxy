@@ -30,6 +30,7 @@
   "license": "MIT",
   "dependencies": {
     "body-parser": "^1.18.3",
+    "minimist": ">=1.2.2",
     "btoa": "^1.2.1",
     "chalk": "^2.4.1",
     "debug": "^4.1.1",
