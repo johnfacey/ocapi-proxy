@@ -62,7 +62,7 @@ Example:
 {
     "server": "yoursandbox.demandware.net",
     "site_id": "SiteGenesis",
-    "version": "v18_8",
+    "version": "v20_3",
     "client_id": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
     "port": 8080,
     "UA": "UA-XXXX-XXXX"  //This is optional can remove or leave blank.
@@ -88,11 +88,11 @@ Updated contact info for [Github](https://github.com/johnfacey) and [Twitter](ht
 
 ## OCAPI Output Modifications
 
-Currently **Authorization** and **ETag**  headers are returned into the body from the output proxy rather than in the header. These are not needed in 19.X
+Currently **Authorization** and **ETag**  headers are returned into the body from the output proxy rather than in the header. These are not needed in 19.X+
 
 ## Universal Analytics
 
-Updated for: ![](https://img.shields.io/badge/Version-1.0.9-green.svg)
+Updated for: ![](https://img.shields.io/badge/Version-1.0.11-green.svg)
 
 The Proxy will communicate with Google Universal Analytics if a "UA" attribute is found in the config file. You may leave this attribute blank or remove it from the config. Currently all UA requests are send as a event tag with the url of the Commerce Cloud Instance.
 
