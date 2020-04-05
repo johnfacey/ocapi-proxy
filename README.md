@@ -88,7 +88,7 @@ Currently **Authorization** and **ETag**  headers are returned into the body fro
 
 ## Universal Analytics
 
-Updated for: ![](https://img.shields.io/badge/Version-1.0.11-green.svg)
+Updated for: ![](https://img.shields.io/badge/Version-1.0.12-green.svg)
 
 The Proxy will communicate with Google Universal Analytics if a "UA" attribute is found in the config file. You may leave this attribute blank or remove it from the config. Currently all UA requests are send as a event tag with the url of the Commerce Cloud Instance.
 
