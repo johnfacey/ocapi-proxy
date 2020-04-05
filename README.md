@@ -25,7 +25,6 @@ Required:
 Optional:
     Postman or another rest API tool.
     ngrok - If you need to get a public url to your localhost
-    pm2 - Process Manager
 ```
 ## Installing
 ```
@@ -38,15 +37,12 @@ From the command line:
 ```
 npm start or node ocapi-proxy.js
 
-or with PM2 Support (npm install pm2 -g)
 
 ```
 
 Example:
 ```
-pm2 start ocapi-proxy.js
-pm2 stop ocapi-proxy.js
-pm2 delete ocapi-proxy.js
+npm start ocapi-proxy.js
 ```
 ![Postman Example](./examples/pm2-example.png)
 
@@ -124,6 +120,5 @@ See the [LICENSE.md](LICENSE.md) file for details
 
 * [**Salesforce Commerce Cloud**](https://www.salesforce.com/products/commerce-cloud/overview)
 * [**NodeJS**](https://nodejs.org) 
-* [**PM2**](http://pm2.keymetrics.io/) 
 * [**Visual Studio Code**](https://code.visualstudio.com)
 * [**ngrok**](https://ngrok.com)
