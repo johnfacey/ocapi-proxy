@@ -74,7 +74,7 @@ readConfig = function () {
                             return console.log(chalk.blue('OCAPI Proxy listening on Port: ' + process.env.PORT));
                         });
                     } else {
-                        app.listen(port, () => {
+                        app.listen(process.env.PORT || port, () => {
                             return console.log(chalk.blue('OCAPI Proxy listening on Heroku Port: ' + port));
                         });
                     }
