@@ -9,32 +9,32 @@ var ua = require('universal-analytics');
 var app = express();
 var server = "";
 var site_id = "SiteGenesis";
-var version = "v18_8";
+var version = "v20_10";
 var port = 8080;
 
 var UA = "";
 var now = new Date();
 
-var logDate = now.getFullYear() +"-"+now.getDay()+"-"+now.getDate();
+var logDate = now.getFullYear() + "-" + now.getDay() + "-" + now.getDate();
 
 var message = "";
-var logFileName = "./logs/ocapi-proxy-"+logDate+".log";
+var logFileName = "./logs/ocapi-proxy-" + logDate + ".log";
 try {
     fs.mkdirSync("./logs");
 } catch (err) {
     console.log(chalk.red('Logs directory already exists'));
 }
 
-writeLog = function(logMessage) {
-    fs.appendFileSync(logFileName, logMessage +"\r\n", function (err) {
+writeLog = function (logMessage) {
+    fs.appendFileSync(logFileName, logMessage + "\r\n", function (err) {
         if (err) throw err;
-    
-      });
+
+    });
 };
 
 var file = './config.json';
 try {
-    if (process.argv[2]){
+    if (process.argv[2]) {
         file = process.argv[2];
     }
 } catch (err) {
@@ -60,7 +60,11 @@ readConfig = function () {
                     writeLog(message);
                     return false;
                 } else {
-                    port = config.port;
+                    try {
+                        port = config.port;
+                    } catch (err) {
+                        port = process.env.PORT;
+                    }
                     site_id = config.site_id;
                     server = config.server;
                     version = config.version;
@@ -95,7 +99,7 @@ writeConfig = function () {
         "version": "v20_3",
         "client_id": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
         "port": 8080,
-        "UA" : ""
+        "UA": ""
     };
     jsonfile.writeFile(file, obj, function (err) {
         if (err != null) {
@@ -154,8 +158,8 @@ function ProxyCall(req, resp) {
     if (UA != "") {
 
         try {
-            var visitor = ua(UA);//UA-XXXX-XX
-            visitor.event("OCAPI",callurl).send();
+            var visitor = ua(UA); //UA-XXXX-XX
+            visitor.event("OCAPI", callurl).send();
 
         } catch (err) {
             console.log(chalk.red(err));
@@ -188,7 +192,7 @@ function ProxyCall(req, resp) {
             writeLog(err);
         }
 
-       // request(options, callback);
+        // request(options, callback);
 
     }
 }
