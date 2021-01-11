@@ -60,11 +60,7 @@ readConfig = function () {
                     writeLog(message);
                     return false;
                 } else {
-                    try {
-                        port = config.port;
-                    } catch (err) {
-                        port = process.env.PORT;
-                    }
+                    port = config.port;
                     site_id = config.site_id;
                     server = config.server;
                     version = config.version;
@@ -72,9 +68,16 @@ readConfig = function () {
                     if (config.UA != undefined && config.UA != "") {
                         UA = config.UA;
                     }
-                    app.listen(port, () => {
-                        return console.log(chalk.blue('OCAPI Proxy listening on port: ' + port));
-                    });
+
+                    try {
+                        app.listen(port, () => {
+                            return console.log(chalk.blue('OCAPI Proxy listening on port: ' + port));
+                        });
+                    } catch(err) {
+                        app.listen(process.env.PORT, () => {
+                            return console.log(chalk.blue('OCAPI Proxy listening on port: ' + process.env.PORT));
+                        });
+                    }
                     return true;
                 }
             });
