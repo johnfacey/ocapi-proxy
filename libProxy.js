@@ -60,7 +60,7 @@ readConfig = function () {
                     writeLog(message);
                     return false;
                 } else {
-                    port = config.port;
+                    port = process.env.PORT || config.port;
                     site_id = config.site_id;
                     server = config.server;
                     version = config.version;
