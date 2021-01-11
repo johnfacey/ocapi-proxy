@@ -10,7 +10,7 @@ var app = express();
 var server = "";
 var site_id = "SiteGenesis";
 var version = "v20_10";
-var port = 8080;
+var port = process.env.PORT || 8080;
 
 var UA = "";
 var now = new Date();
@@ -97,12 +97,13 @@ readConfig = function () {
  * Currently unsed
  */
 writeConfig = function () {
+    
     var obj = {
         "server": "yoursandbox.demandware.net",
         "site_id": "SiteGenesis",
         "version": "v20_3",
         "client_id": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
-        "port": 8080,
+        "port": port,
         "UA": ""
     };
     jsonfile.writeFile(file, obj, function (err) {
