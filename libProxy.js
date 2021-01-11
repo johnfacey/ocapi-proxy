@@ -69,15 +69,16 @@ readConfig = function () {
                         UA = config.UA;
                     }
 
-                    try {
-                        app.listen(port, () => {
-                            return console.log(chalk.blue('OCAPI Proxy listening on port: ' + port));
-                        });
-                    } catch(err) {
+                    if (process.env._ && process.env._.indexOf("heroku")) {
                         app.listen(process.env.PORT, () => {
-                            return console.log(chalk.blue('OCAPI Proxy listening on port: ' + process.env.PORT));
+                            return console.log(chalk.blue('OCAPI Proxy listening on Port: ' + process.env.PORT));
+                        });
+                    } else {
+                        app.listen(port, () => {
+                            return console.log(chalk.blue('OCAPI Proxy listening on Heroku Port: ' + port));
                         });
                     }
+                   
                     return true;
                 }
             });
