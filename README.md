@@ -2,13 +2,12 @@
 
 ![](https://img.shields.io/badge/Salesforce-OCAPIProxy-blue.svg)  
 
+
 [![NPM](https://nodei.co/npm/ocapi-proxy.png?downloads=true&downloadRank=true&stars=true)](https://nodei.co/npm/ocapi-proxy/)
 
 This project will serve as a local NodeJS based Proxy server that will forward requests to an Salesforce Commerce Cloud OCAPI instance. 
 This can be used for purposes such as testing 3rd party apps using OCAPI as well as integration for mobile/browser apps. 
 The configuration of site_id, client_id are configured at the Proxy level rather than in the app directly. 
-
-Coresponding Mobile App: {future link}
 
 ## Getting Started
 
@@ -16,6 +15,11 @@ Edit the config.json to match the server you are using.
 If you are using a service such as https://ngrok.com you may need to add the url to your Business Manager allowed origins.
 **NOTE:** This package only forwards OCAPI requests from one point to another. The main purpose is for routing data around CORS and is typically useful for Mobile Applications. x-dw-client-id as a header attribute must be used instead of client_id as a url parameter.
 
+## Updates
+```
+Errors will now return a json format if the SFCC instance can be reached. 
+This will resolve issues with Postman not getting back a json result and aid in debugging. UI Testing interface added.
+```
 ## Prerequisites
 ```
 Required:
@@ -90,10 +94,6 @@ Currently **Authorization** and **ETag**  headers are returned into the body fro
 
 ## Universal Analytics
 
-Updated for: ![](https://img.shields.io/badge/Version-1.0.14-green.svg)
-
-Errors will now return a json format if the SFCC instance can be reached. This will resolve issues with Postman not getting back a json result and aid in debugging.
-
 The Proxy will communicate with Google Universal Analytics if a "UA" attribute is found in the config file. You may leave this attribute blank or remove it from the config. Currently all UA requests are send as a event tag with the url of the Commerce Cloud Instance.
 
 ## Proxy Testing UI
@@ -105,6 +105,35 @@ NEW Proxy UI for testing from a web brwoser interface. Config attribute "port_ui
 ## Files / Links
 * [**Postman Collection**](./examples/OCAPI-Proxy.postman_collection.json)
 * [**Example: config.json**](./sample-config.json)
+```
+## File Structure
+
+Within the download you'll find the following directories and files:
+|-- Root
+    |-- .gitignore
+    |-- .npmignore
+    |-- build.js
+    |-- config.json
+    |-- ecosystem.config.js
+    |-- libProxy.js
+    |-- LICENSE.md
+    |-- ocapi-proxy.js
+    |-- package-lock.json
+    |-- package.json
+    |-- README.md
+    |-- sample-config.json
+    |-- SECURITY.md
+    |-- .vscode
+    |   |-- launch.json
+    |-- examples
+    |   |-- diagram-middleware.png
+    |   |-- OCAPI-Proxy-Tester.png
+    |   |-- OCAPI-Proxy.postman_collection.json
+    |   |-- pm2-example.png
+    |   |-- postman-example.png
+    |-- html
+    |   |-- index.html
+    |-- logs
 
 ## Logging
 

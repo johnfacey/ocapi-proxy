@@ -1,6 +1,6 @@
 {
   "name": "ocapi-proxy",
-  "version": "1.0.14",
+  "version": "1.0.15",
   "description": "Salesforce Commerce Cloud OCAPI Proxy Router",
   "repository": {
     "type": "git",
@@ -24,7 +24,13 @@
     "commerce cloud",
     "open commerce",
     "node",
-    "proxy"
+    "proxy",
+    "bootstrap",
+    "jquery",
+    "web service",
+    "proxy",
+    "router",
+    "server"
   ],
   "author": "John K. Facey II",
   "license": "MIT",
