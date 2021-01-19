@@ -105,9 +105,9 @@ NEW Proxy UI for testing from a web brwoser interface. Config attribute "port_ui
 ## Files / Links
 * [**Postman Collection**](./examples/OCAPI-Proxy.postman_collection.json)
 * [**Example: config.json**](./sample-config.json)
-```
-## File Structure
 
+## File Structure
+```
 Within the download you'll find the following directories and files:
 |-- Root
     |-- .gitignore
@@ -134,7 +134,7 @@ Within the download you'll find the following directories and files:
     |-- html
     |   |-- index.html
     |-- logs
-
+```
 ## Logging
 
 The Proxy will generate logs where the current proxy has been executed in the logs directory.
