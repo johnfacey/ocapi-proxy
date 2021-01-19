@@ -44,6 +44,7 @@
     "fs": "0.0.1-security",
     "jsonfile": "^5.0.0",
     "minimist": ">=1.2.5",
+    "open": "^7.3.1",
     "universal-analytics": "^0.4.20"
   }
 }

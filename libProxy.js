@@ -5,6 +5,8 @@ var jsonfile = require('jsonfile');
 var fs = require('fs');
 var chalk = require("chalk");
 var ua = require('universal-analytics');
+var open = require('open');
+
 var path = __dirname + '/html/';
 
 var app = express();
@@ -81,6 +83,16 @@ readConfig = function () {
                         return console.log(chalk.blue('OCAPI Proxy UI Port: ' + adminPort));
                     });
 
+                    
+                    (async () => {
+                        var adminHost = 'http://localhost:'+adminPort;
+                        var message = "Local: " + adminHost;
+                        writeLog(message);
+                        console.log(chalk.blue(message));
+                        // Opens the url in the default browser
+                        await open(adminHost);
+
+                    })();
 
                     return true;
                 }

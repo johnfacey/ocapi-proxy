@@ -145,6 +145,9 @@ The Proxy will generate logs where the current proxy has been executed in the lo
 * [**Express**](https://expressjs.com) - Minimalist Web Framework for NodeJS
 * [**jsonfile**](https://www.npmjs.com/package/jsonfile) - read/write JSON files in NodeJS
 * [**universal-analytics**](https://www.npmjs.com/package/universal-analytics) - Google Universal Analytics
+* [**open**](https://www.npmjs.com/package/open) - Open (NPM)
+* [**Mddir**](https://www.npmjs.com/package/mddir) - Mddir (NPM)
+
 
 ## Authors
 
