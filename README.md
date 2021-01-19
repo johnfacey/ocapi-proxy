@@ -100,7 +100,7 @@ The Proxy will communicate with Google Universal Analytics if a "UA" attribute i
 
 ![Postman Example](./examples/OCAPI-Proxy-Tester.png)
 
-NEW Proxy UI for testing from a web brwoser interface. Config attribute "port_ui" added to config.json
+NEW Proxy UI for testing from a web browser interface. Config attribute "port_ui" added to config.json
 
 ## Files / Links
 * [**Postman Collection**](./examples/OCAPI-Proxy.postman_collection.json)
