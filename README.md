@@ -51,6 +51,7 @@ To edit the port, domain, etc.. modify the config.json file.
 server: your SalesForce Commerce Cloud server (currently all calls are https)
 site_id: SFCC Site ID
 version: SFCC OCAPI Version
+port_ui: Port for browser testing requests.
 port: Port that proxy listens for requests.
 
 Example:
@@ -58,9 +59,10 @@ Example:
 {
     "server": "yoursandbox.demandware.net",
     "site_id": "SiteGenesis",
-    "version": "v20_3",
+    "version": "v20_10",
     "client_id": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
     "port": 8080,
+    "port_ui": 80,
     "UA": "UA-XXXX-XXXX"  //This is optional can remove or leave blank.
 };
 ```
@@ -88,9 +90,21 @@ Currently **Authorization** and **ETag**  headers are returned into the body fro
 
 ## Universal Analytics
 
-Updated for: ![](https://img.shields.io/badge/Version-1.0.13-green.svg)
+Updated for: ![](https://img.shields.io/badge/Version-1.0.14-green.svg)
+
+Errors will now return a json format if the SFCC instance can be reached. This will resolve issues with Postman not getting back a json result and aid in debugging.
 
 The Proxy will communicate with Google Universal Analytics if a "UA" attribute is found in the config file. You may leave this attribute blank or remove it from the config. Currently all UA requests are send as a event tag with the url of the Commerce Cloud Instance.
+
+## Proxy Testing UI
+
+![Postman Example](./examples/OCAPI-Proxy-Tester.png)
+
+NEW Proxy UI for testing from a web brwoser interface. Config attribute "port_ui" added to config.json
+
+## Files / Links
+* [**Postman Collection**](./examples/OCAPI-Proxy.postman_collection.json)
+* [**Example: config.json**](./sample-config.json)
 
 ## Logging
 
@@ -105,10 +119,11 @@ The Proxy will generate logs where the current proxy has been executed in the lo
 
 ## Authors
 
-* **John Facey II** - *Initial work*  
+* **John Facey II** - *Lead*  
 [![GitHub followers](https://img.shields.io/github/followers/johnfacey.svg?label=Follow&style=social)](https://github.com/johnfacey)
 [![Twitter followers](https://img.shields.io/twitter/follow/johnfacey.svg?label=Follow&style=social)](https://twitter.com/johnfacey)
 
+[![ko-fi](https://ko-fi.com/img/githubbutton_sm.svg)](https://ko-fi.com/M4M13CMPP)
 
 ## License
 
@@ -122,3 +137,5 @@ See the [LICENSE.md](LICENSE.md) file for details
 * [**NodeJS**](https://nodejs.org) 
 * [**Visual Studio Code**](https://code.visualstudio.com)
 * [**ngrok**](https://ngrok.com)
+* [**jQuery**](https://jQuery.com)
+* [**Bootstrap**](https://getbootstrap.com)

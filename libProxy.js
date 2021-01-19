@@ -5,13 +5,15 @@ var jsonfile = require('jsonfile');
 var fs = require('fs');
 var chalk = require("chalk");
 var ua = require('universal-analytics');
+var path = __dirname + '/html/';
 
 var app = express();
+var admin = express();
 var server = "";
 var site_id = "SiteGenesis";
 var version = "v20_10";
 var port = process.env.PORT || 8080;
-
+var adminPort = 80;
 var UA = "";
 var now = new Date();
 
@@ -58,9 +60,11 @@ readConfig = function () {
                     message = "Update the config.json or use sample-config.json";
                     console.log(chalk.blue(message));
                     writeLog(message);
+                    console.log(chalk.blue("Exiting ocapi-proxy"));
                     return false;
                 } else {
                     port = process.env.PORT || config.port;
+                    adminPort = config.port_ui || 80;
                     site_id = config.site_id;
                     server = config.server;
                     version = config.version;
@@ -69,16 +73,15 @@ readConfig = function () {
                         UA = config.UA;
                     }
 
-                    if (process.env._ && process.env._.indexOf("heroku")) {
-                        app.listen(process.env.PORT, () => {
-                            return console.log(chalk.blue('OCAPI Proxy listening on Port: ' + process.env.PORT));
-                        });
-                    } else {
-                        app.listen(process.env.PORT || port, () => {
-                            return console.log(chalk.blue('OCAPI Proxy listening on Heroku Port: ' + port));
-                        });
-                    }
-                   
+                    app.listen(port, () => {
+                        return console.log(chalk.blue('OCAPI Proxy Port: ' + port));
+                    });
+
+                    admin.listen(adminPort, () => {
+                        return console.log(chalk.blue('OCAPI Proxy UI Port: ' + adminPort));
+                    });
+
+
                     return true;
                 }
             });
@@ -93,17 +96,15 @@ readConfig = function () {
 
 };
 
-/**
- * Currently unsed
- */
 writeConfig = function () {
-    
+
     var obj = {
         "server": "yoursandbox.demandware.net",
         "site_id": "SiteGenesis",
-        "version": "v20_3",
+        "version": "v20_10",
         "client_id": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
         "port": port,
+        "port_ui": adminPort,
         "UA": ""
     };
     jsonfile.writeFile(file, obj, function (err) {
@@ -116,6 +117,25 @@ writeConfig = function () {
     console.log(chalk.blue(message));
     writeLog(message);
 };
+
+
+function callbackAdmin(error, response, body) {
+    response.send("Hello World");
+}
+
+function AdminCall(req, resp) {
+    var adminRequest = req;
+    var adminResponse = resp;
+    var options = {
+        //url: callurl, //proxyRequest.headers.callurl,
+        method: req.method,
+        //headers: {
+        //            'callurl': proxyRequest.headers.callurl
+        //      },
+        body: adminRequest.body
+    };
+    request(options, callbackAdmin);
+}
 
 function ProxyCall(req, resp) {
     var proxyRequest = req;
@@ -172,9 +192,25 @@ function ProxyCall(req, resp) {
         }
     }
 
+
     function callback(error, response, body) {
         try {
-            if (!error && response.statusCode == 200) {}
+            if (!error && response.statusCode == 200) {
+                writeLog(body);
+                console.log(chalk.green(body));
+            } else {
+                //error
+                console.log(chalk.red("Check Config/Ports - " + error.code + ":" + error.message));
+                writeLog("Check Config/Ports - " + error.code + ":" + error.message);
+                jsonError = {
+                    "code": error.code,
+                    "message": error.message,
+                    "timestamp": new Date().getTime()
+                }
+                jsonError = JSON.stringify(jsonError);
+                proxyResponse.send(jsonError);
+                return;
+            }
 
             writeLog(body);
             console.log(chalk.green(body));
@@ -229,6 +265,25 @@ exports.start = function () {
 
     });
 
+    /////
+    admin.use(bodyParser.urlencoded({
+        extended: true
+    }));
+
+    //admin.use(bodyParser.json());
+
+    app.use(express.static(__dirname + '/html'));
+
+    admin.all('/', function (request, response) {
+
+        //response.setHeader('Content-Type', "text/html");
+        var headers = JSON.stringify(request.headers);
+        var requestBody = request.body;
+        //response.send('Hello World!');
+        //AdminCall(request, response);
+        response.sendFile(path + "index.html");
+    });
+    /////
     // app.listen(port, () => console.log('OCAPI Proxy listening on port: ' + port));
 
 };

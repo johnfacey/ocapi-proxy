@@ -4,5 +4,6 @@
     "version" : "v20_10",
     "client_id" : "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
     "port" : 8080,
+    "port_ui": 80,
     "UA" : "UA-XXXX-XX"
 }
