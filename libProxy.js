@@ -79,15 +79,17 @@ readConfig = function () {
                         return console.log(chalk.blue('OCAPI Proxy Port: ' + port));
                     });
 
-                    admin.listen(adminPort, () => {
+                    if (adminPort != "") {
+                        admin.listen(adminPort, () => {
                         return console.log(chalk.blue('OCAPI Proxy UI Port: ' + adminPort));
                     });
+                }
 
                     
                     (async () => {
                         if (adminPort != "") {
                             var adminHost = 'http://localhost:'+adminPort;
-                            var message = "Local: " + adminHost;
+                            var message = "Opening: " + adminHost;
                             writeLog(message);
                             console.log(chalk.blue(message));
                             // Opens the url in the default browser
