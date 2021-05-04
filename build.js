@@ -9,9 +9,11 @@ writeConfig = function () {
     var obj = {
         "server": "yoursandbox.demandware.net",
         "site_id": "SiteGenesis",
-        "version": "v20_3",
+        "version": "v21_3",
         "client_id": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
-        "port": 8080
+        "port":8080,
+        "port_ui": 80,
+        "UA": "UA-XXXX-XXXX"
     };
     jsonfile.writeFile(file, obj, function (err) {
         if (err != null) {

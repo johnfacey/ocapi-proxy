@@ -1,5 +1,5 @@
 # Salesforce Commerce Cloud OCAPI Proxy 
-![version](https://img.shields.io/badge/Salesforce-OCAPIProxy-blue.svg)  ![version](https://img.shields.io/badge/version-1.2.0-green.svg)
+![version](https://img.shields.io/badge/Salesforce-OCAPIProxy-blue.svg)  ![version](https://img.shields.io/badge/version-2.0.1-green.svg)
 
 
 [![NPM](https://nodei.co/npm/ocapi-proxy.png?downloads=true&downloadRank=true&stars=true)](https://nodei.co/npm/ocapi-proxy/)
@@ -63,7 +63,7 @@ Example:
 {
     "server": "yoursandbox.demandware.net",
     "site_id": "SiteGenesis",
-    "version": "v20_10",
+    "version": "v21_3",
     "client_id": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
     "port": 8080,
     "port_ui": 80,

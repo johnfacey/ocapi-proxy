@@ -13,9 +13,9 @@ var app = express();
 var admin = express();
 var server = "";
 var site_id = "SiteGenesis";
-var version = "v20_10";
+var version = "v21_3";
 var port = process.env.PORT || 8080;
-var adminPort = 80;
+var adminPort = "";
 var UA = "";
 var now = new Date();
 
@@ -85,13 +85,14 @@ readConfig = function () {
 
                     
                     (async () => {
-                        var adminHost = 'http://localhost:'+adminPort;
-                        var message = "Local: " + adminHost;
-                        writeLog(message);
-                        console.log(chalk.blue(message));
-                        // Opens the url in the default browser
-                        await open(adminHost);
-
+                        if (adminPort != "") {
+                            var adminHost = 'http://localhost:'+adminPort;
+                            var message = "Local: " + adminHost;
+                            writeLog(message);
+                            console.log(chalk.blue(message));
+                            // Opens the url in the default browser
+                            await open(adminHost);
+                        }
                     })();
 
                     return true;
@@ -113,7 +114,7 @@ writeConfig = function () {
     var obj = {
         "server": "yoursandbox.demandware.net",
         "site_id": "SiteGenesis",
-        "version": "v20_10",
+        "version": "v21_3",
         "client_id": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
         "port": port,
         "port_ui": adminPort,
