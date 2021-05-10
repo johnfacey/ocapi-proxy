@@ -88,6 +88,7 @@ readConfig = function () {
                             console.log(chalk.blue(message));
                     });
                 }
+
                     return true;
                 }
             });

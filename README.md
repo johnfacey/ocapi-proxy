@@ -1,5 +1,5 @@
 # Salesforce Commerce Cloud OCAPI Proxy 
-![version](https://img.shields.io/badge/Salesforce-OCAPIProxy-blue.svg)  ![version](https://img.shields.io/badge/version-2.0.2-green.svg)
+![version](https://img.shields.io/badge/Salesforce-OCAPIProxy-blue.svg)  ![version](https://img.shields.io/badge/version-2.1.0-green.svg)
 
 
 [![NPM](https://nodei.co/npm/ocapi-proxy.png?downloads=true&downloadRank=true&stars=true)](https://nodei.co/npm/ocapi-proxy/)
@@ -16,10 +16,14 @@ If you are using a service such as https://ngrok.com you may need to add the url
 **NOTE:** This package only forwards OCAPI requests from one point to another. The main purpose is for routing data around CORS and is typically useful for Mobile Applications. x-dw-client-id as a header attribute must be used instead of client_id as a url parameter.
 
 ## Updates
-```
+
+Updated UI Interface with Request and Response sections.
+Removed Autolaunch of UI.
+Cors changes to express have been added.
+UI can be compltely disabled in config.json as well as Google Anaylrics by making the value ""
 Errors will now return a json format if the SFCC instance can be reached. 
-This will resolve issues with Postman not getting back a json result and aid in debugging. UI Testing interface added.
-```
+This will resolve issues with Postman not getting back a json result and aid in debugging. 
+
 ## Prerequisites
 ```
 Required:
