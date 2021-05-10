@@ -6,7 +6,7 @@ var fs = require('fs');
 var chalk = require("chalk");
 var ua = require('universal-analytics');
 var open = require('open');
-
+var cors = require('cors');
 var path = __dirname + '/html/';
 
 var app = express();
@@ -66,7 +66,7 @@ readConfig = function () {
                     return false;
                 } else {
                     port = process.env.PORT || config.port;
-                    adminPort = config.port_ui || 80;
+                    adminPort = config.port_ui || "";
                     site_id = config.site_id;
                     server = config.server;
                     version = config.version;
@@ -135,18 +135,14 @@ writeConfig = function () {
 
 
 function callbackAdmin(error, response, body) {
-    response.send("Hello World");
+    response.send("Test Callback");
 }
 
 function AdminCall(req, resp) {
     var adminRequest = req;
     var adminResponse = resp;
     var options = {
-        //url: callurl, //proxyRequest.headers.callurl,
         method: req.method,
-        //headers: {
-        //            'callurl': proxyRequest.headers.callurl
-        //      },
         body: adminRequest.body
     };
     request(options, callbackAdmin);
@@ -165,16 +161,6 @@ function ProxyCall(req, resp) {
         body: JSON.stringify(proxyRequest.body)
     };
 
-    /*if (proxyRequest.headers.hasOwnProperty("header-copy")) {
-
-        for (var propt in proxyRequest.headers) {
-            if (propt != "host") {
-                options.headers[propt] = proxyRequest.headers[propt];
-            }
-        }
-    */
-    // } else {
-
     options.headers["x-dw-client-id"] = client_id;
 
     if (proxyRequest.headers.hasOwnProperty("x-dw-http-method-override")) {
@@ -192,7 +178,6 @@ function ProxyCall(req, resp) {
     if (proxyRequest.headers.hasOwnProperty("etag")) {
         options.headers.ETag = proxyRequest.headers.etag;
     }
-    //}
 
     request(options, callback);
     if (UA != "") {
@@ -239,16 +224,12 @@ function ProxyCall(req, resp) {
                 jsonBody.ETag = response.headers.etag;
             }
             jsonBody = JSON.stringify(jsonBody);
-
-            //console.log(jsonBody);
             proxyResponse.send(jsonBody);
 
         } catch (err) {
             console.log(chalk.red(err));
             writeLog(err);
         }
-
-        // request(options, callback);
 
     }
 }
@@ -268,11 +249,14 @@ exports.start = function () {
         extended: true
     }));
 
-    app.use(bodyParser.json());
+    app.use(cors());
+    admin.use(cors());
 
     app.all('/', jsonParser, function (request, response) {
 
         response.setHeader('Content-Type', "application/json");
+        response.setHeader("Access-Control-Allow-Origin", "*");
+
         var headers = JSON.stringify(request.headers);
         var requestBody = request.body;
 
@@ -280,25 +264,20 @@ exports.start = function () {
 
     });
 
-    /////
     admin.use(bodyParser.urlencoded({
         extended: true
     }));
-
-    //admin.use(bodyParser.json());
-
+  
     app.use(express.static(__dirname + '/html'));
 
     admin.all('/', function (request, response) {
 
-        //response.setHeader('Content-Type', "text/html");
+        response.setHeader('Content-Type', "text/html");
         var headers = JSON.stringify(request.headers);
         var requestBody = request.body;
-        //response.send('Hello World!');
-        //AdminCall(request, response);
+        
         response.sendFile(path + "index.html");
     });
-    /////
-    // app.listen(port, () => console.log('OCAPI Proxy listening on port: ' + port));
+   
 
 };
