@@ -1,6 +1,6 @@
 {
   "name": "ocapi-proxy",
-  "version": "2.0.1",
+  "version": "2.0.2",
   "description": "Salesforce Commerce Cloud OCAPI Proxy Router",
   "repository": {
     "type": "git",

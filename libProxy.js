@@ -18,6 +18,7 @@ var port = process.env.PORT || 8080;
 var adminPort = "";
 var UA = "";
 var now = new Date();
+var loadUI = false;
 
 var logDate = now.getFullYear() + "-" + now.getDay() + "-" + now.getDate();
 
@@ -81,22 +82,12 @@ readConfig = function () {
 
                     if (adminPort != "") {
                         admin.listen(adminPort, () => {
-                        return console.log(chalk.blue('OCAPI Proxy UI Port: ' + adminPort));
-                    });
-                }
-
-                    
-                    (async () => {
-                        if (adminPort != "") {
                             var adminHost = 'http://localhost:'+adminPort;
-                            var message = "Opening: " + adminHost;
+                            var message = "OCAPI UI: " + adminHost;
                             writeLog(message);
                             console.log(chalk.blue(message));
-                            // Opens the url in the default browser
-                            await open(adminHost);
-                        }
-                    })();
-
+                    });
+                }
                     return true;
                 }
             });
@@ -169,7 +160,6 @@ function ProxyCall(req, resp) {
     if (proxyRequest.headers.hasOwnProperty("user-agent")) {
         options.headers["user-agent"] = proxyRequest.headers["user-agent"];
     }
-
 
     if (proxyRequest.headers.hasOwnProperty("authorization")) {
         options.headers.Authorization = proxyRequest.headers.authorization;
@@ -279,5 +269,10 @@ exports.start = function () {
         response.sendFile(path + "index.html");
     });
    
+    if (process.argv.slice(2) != null && process.argv.slice(2) != undefined) {
+        if (process.argv.slice(2) == "loadUI") {
+            loadUI = true;
+        }
+    }
 
 };
