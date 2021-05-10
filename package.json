@@ -39,6 +39,7 @@
     "bootstrap": "^4.5.3",
     "btoa": "^1.2.1",
     "chalk": "^2.4.1",
+    "cors": "^2.8.5",
     "debug": "^4.1.1",
     "express": "^4.16.4",
     "fs": "0.0.1-security",
