@@ -8,6 +8,10 @@ This project will serve as a local NodeJS based Proxy server that will forward r
 This can be used for purposes such as testing 3rd party apps using OCAPI as well as integration for mobile/browser apps. 
 The configuration of site_id, client_id are configured at the Proxy level rather than in the app directly. 
 
+
+[![Open in Visual Studio Code](https://open.vscode.dev/badges/open-in-vscode.svg)](https://open.vscode.dev/johnfacey/ocapi-proxy)
+
+
 ## Getting Started
 
 Edit the config.json to match the server you are using. 
@@ -67,7 +71,7 @@ Example:
 {
     "server": "yoursandbox.demandware.net",
     "site_id": "SiteGenesis",
-    "version": "v21_3",
+    "version": "v21_6",
     "client_id": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
     "port": 8080,
     "port_ui": 80,
