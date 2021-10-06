@@ -1,5 +1,5 @@
 # Salesforce Commerce Cloud OCAPI Proxy 
-![version](https://img.shields.io/badge/Salesforce-OCAPIProxy-blue.svg)  ![version](https://img.shields.io/badge/version-2.1.0-green.svg)
+![version](https://img.shields.io/badge/Salesforce-OCAPIProxy-blue.svg)  ![version](https://img.shields.io/badge/version-2.1.2-green.svg)
 
 
 [![NPM](https://nodei.co/npm/ocapi-proxy.png?downloads=true&downloadRank=true&stars=true)](https://nodei.co/npm/ocapi-proxy/)
@@ -60,7 +60,7 @@ npm start ocapi-proxy.js
 
 You will need a config.json (one will be generated on first launch)
 To edit the port, domain, etc.. modify the config.json file. 
-server: your SalesForce Commerce Cloud server (currently all calls are https)
+server: your Salesforce Commerce Cloud server (currently all calls are https)
 site_id: SFCC Site ID
 version: SFCC OCAPI Version
 port_ui: Port for browser testing requests.
