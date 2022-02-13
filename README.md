@@ -71,7 +71,7 @@ Example:
 {
     "server": "yoursandbox.demandware.net",
     "site_id": "SiteGenesis",
-    "version": "v21_6",
+    "version": "v21_10",
     "client_id": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
     "port": 8080,
     "port_ui": 80,
