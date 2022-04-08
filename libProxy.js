@@ -13,7 +13,7 @@ var app = express();
 var admin = express();
 var server = "";
 var site_id = "SiteGenesis";
-var version = "v21_10";
+var version = "v22_4";
 var port = process.env.PORT || 8080;
 var adminPort = "";
 var UA = "";
@@ -108,7 +108,7 @@ writeConfig = function () {
     var obj = {
         "server": "yoursandbox.demandware.net",
         "site_id": "SiteGenesis",
-        "version": "v21_10",
+        "version": "v22_4",
         "client_id": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
         "port": port,
         "port_ui": adminPort,
