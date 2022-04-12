@@ -1,15 +1,17 @@
 # Salesforce Commerce Cloud OCAPI Proxy 
-![version](https://img.shields.io/badge/Salesforce-OCAPIProxy-blue.svg)  ![version](https://img.shields.io/badge/version-2.1.3-green.svg)
+![version](https://img.shields.io/badge/Salesforce-OCAPIProxy-blue.svg)  ![version](https://img.shields.io/badge/version-2.1.4-green.svg)
 
 
 [![NPM](https://nodei.co/npm/ocapi-proxy.png?downloads=true&downloadRank=true&stars=true)](https://nodei.co/npm/ocapi-proxy/)
 
 This project will serve as a local NodeJS based Proxy server that will forward requests to an Salesforce Commerce Cloud OCAPI instance. 
 This can be used for purposes such as testing 3rd party apps using OCAPI as well as integration for mobile/browser apps. 
-The configuration of site_id, client_id are configured at the Proxy level rather than in the app directly. 
+The configuration of site_id, client_id are configured at the proxy level rather than in the app directly. 
 
 
-[![Open in Visual Studio Code](https://open.vscode.dev/badges/open-in-vscode.svg)](https://open.vscode.dev/johnfacey/ocapi-proxy)
+## Welcome: 
+
+![Postman Example](./examples/OCAPI-Proxy-Setup.png)
 
 
 ## Getting Started
