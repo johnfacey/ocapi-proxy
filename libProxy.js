@@ -108,7 +108,7 @@ writeConfig = function () {
     var obj = {
         "server": "yoursandbox.demandware.net",
         "site_id": "SiteGenesis",
-        "version": "v22_4",
+        "version": "v22_10",
         "client_id": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
         "port": port,
         "port_ui": adminPort,
