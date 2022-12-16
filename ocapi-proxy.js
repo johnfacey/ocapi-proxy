@@ -1,5 +1,2 @@
-var proxy = require("./libProxy.js");
-proxy.start();
-
-
-
+var OCAPIProxy = require("./libProxy.js");
+OCAPIProxy.start();

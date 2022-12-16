@@ -2,6 +2,7 @@
   "name": "ocapi-proxy",
   "version": "2.2.0",
   "description": "Salesforce Commerce Cloud OCAPI Proxy Router",
+
   "repository": {
     "type": "git",
     "url": "https://github.com/johnfacey/ocapi-proxy.git"
@@ -47,6 +48,7 @@
     "minimist": "^1.2.7",
     "open": "^8.4.0",
     "qs": "^6.11.0",
+    "request": "^2.88.2",
     "universal-analytics": "^0.5.3"
   }
 }

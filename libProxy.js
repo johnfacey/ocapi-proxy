@@ -1,37 +1,42 @@
-var request = require('request');
-var express = require('express');
-var bodyParser = require('body-parser');
-var jsonfile = require('jsonfile');
-var fs = require('fs');
-var chalk = require("chalk");
-var ua = require('universal-analytics');
-var open = require('open');
-var cors = require('cors');
-var path = __dirname + '/html/';
 
-var app = express();
-var admin = express();
-var server = "";
-var site_id = "SiteGenesis";
-var version = "v22_4";
-var port = process.env.PORT || 8080;
-var adminPort = "";
-var UA = "";
-var now = new Date();
-var loadUI = false;
+/**
+ * OCAPI Proxy Constants 
+ */
+const request = require('request');
+const express = require('express');
+const bodyParser = require('body-parser');
+const jsonfile = require('jsonfile');
+const fs = require('fs');
+const ua = require('universal-analytics');
+const open = require('open');
+const cors = require('cors');
+const path = __dirname + '/html/';
+const app = express();
+const admin = express();
 
-var logDate = now.getFullYear() + "-" + now.getDay() + "-" + now.getDate();
+/**
+ * OCAPI Proxy Variables 
+ */
+let server = "";
+let site_id = "SiteGenesis";
+let version = "v22_4";
+let port = process.env.PORT || 8080;
+let adminPort = "";
+let UA = "";
+let now = new Date();
+let loadUI = false;
+let logDate = now.getFullYear() + "-" + now.getDay() + "-" + now.getDate();
+let message = "";
+let logFileName = "./logs/ocapi-proxy-" + logDate + ".log";
 
-var message = "";
-var logFileName = "./logs/ocapi-proxy-" + logDate + ".log";
 try {
     fs.mkdirSync("./logs");
 } catch (err) {
-    console.log(chalk.red('Logs directory already exists'));
+    console.log('Logs directory already exists');
 }
 
-writeLog = function (logMessage) {
-    fs.appendFileSync(logFileName, logMessage + "\r\n", function (err) {
+writeLog = (logMessage) => {
+    fs.appendFileSync(logFileName, logMessage + "\r\n", (err) => {
         if (err) throw err;
 
     });
@@ -47,23 +52,20 @@ try {
 }
 
 message = "Loading config file: " + file;
-console.log(chalk.blue(message));
+console.log(message);
 writeLog(message);
 
-//writeLog(l);
-
-
-readConfig = function () {
+readConfig = () => {
     try {
         if (fs.existsSync(file)) {
             //file exists --read file
-            jsonfile.readFile(file, function (err, obj) {
+            jsonfile.readFile(file, (err, obj) => {
                 config = obj;
                 if (config == undefined) { //file invalid
                     message = "Update the config.json or use sample-config.json";
-                    console.log(chalk.blue(message));
+                    console.log(message);
                     writeLog(message);
-                    console.log(chalk.blue("Exiting ocapi-proxy"));
+                    console.log("Exiting ocapi-proxy");
                     return false;
                 } else {
                     port = process.env.PORT || config.port;
@@ -77,7 +79,7 @@ readConfig = function () {
                     }
 
                     app.listen(port, () => {
-                        return console.log(chalk.blue('OCAPI Proxy Port: ' + port));
+                        return console.log('OCAPI Proxy Port: ' + port);
                     });
 
                     if (adminPort != "") {
@@ -85,7 +87,7 @@ readConfig = function () {
                             var adminHost = 'http://localhost:'+adminPort;
                             var message = "OCAPI UI: " + adminHost;
                             writeLog(message);
-                            console.log(chalk.blue(message));
+                            console.log(message);
                     });
                 }
 
@@ -103,7 +105,7 @@ readConfig = function () {
 
 };
 
-writeConfig = function () {
+writeConfig = () => {
 
     var obj = {
         "server": "yoursandbox.demandware.net",
@@ -114,23 +116,23 @@ writeConfig = function () {
         "port_ui": adminPort,
         "UA": ""
     };
-    jsonfile.writeFile(file, obj, function (err) {
+    jsonfile.writeFile(file, obj, (err) => {
         if (err != null) {
-            console.log(chalk.red(err));
+            console.log(err);
             writeLog(err);
         }
     });
     message = "Creating config.json";
-    console.log(chalk.blue(message));
+    console.log(message);
     writeLog(message);
 };
 
 
-function callbackAdmin(error, response, body) {
+ callbackAdmin = (error, response, body) => {
     response.send("Test Callback");
 }
 
-function AdminCall(req, resp) {
+AdminCall = (req, resp) => {
     var adminRequest = req;
     var adminResponse = resp;
     var options = {
@@ -140,7 +142,7 @@ function AdminCall(req, resp) {
     request(options, callbackAdmin);
 }
 
-function ProxyCall(req, resp) {
+ProxyCall = (req, resp) => {
     var proxyRequest = req;
     var proxyResponse = resp;
     var callurl = "https://" + server + "/s/" + site_id + "/dw/shop/" + version + "/" + proxyRequest.headers.callurl;
@@ -178,13 +180,13 @@ function ProxyCall(req, resp) {
             visitor.event("OCAPI", callurl).send();
 
         } catch (err) {
-            console.log(chalk.red(err));
+            console.log(err);
             writeLog(err);
         }
     }
 
 
-    function callback(error, response, body) {
+    callback = (error, response, body) => {
         try {
             if (!error && response.statusCode == 200) {
                 writeLog(body);
@@ -204,7 +206,7 @@ function ProxyCall(req, resp) {
             }
 
             writeLog(body);
-            console.log(chalk.green(body));
+            console.log(body);
             var jsonBody = JSON.parse(body);
 
             if (response.headers.hasOwnProperty("authorization")) {
@@ -218,14 +220,14 @@ function ProxyCall(req, resp) {
             proxyResponse.send(jsonBody);
 
         } catch (err) {
-            console.log(chalk.red(err));
+            console.log(err);
             writeLog(err);
         }
 
     }
 }
 
-exports.start = function () {
+exports.start = () => {
 
     var configFileValid = readConfig();
     if (configFileValid) {
@@ -243,7 +245,7 @@ exports.start = function () {
     app.use(cors());
     admin.use(cors());
 
-    app.all('/', jsonParser, function (request, response) {
+    app.all('/', jsonParser,  (request, response) => {
 
         response.setHeader('Content-Type', "application/json");
         response.setHeader("Access-Control-Allow-Origin", "*");
@@ -261,7 +263,7 @@ exports.start = function () {
   
     app.use(express.static(__dirname + '/html'));
 
-    admin.all('/', function (request, response) {
+    admin.all('/', (request, response) => {
 
         response.setHeader('Content-Type', "text/html");
         var headers = JSON.stringify(request.headers);
