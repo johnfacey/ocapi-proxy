@@ -1,9 +1,11 @@
 {
     "server": "{instance}.demandware.net",
     "site_id": "SiteGenesis",
-    "version" : "v22_10",
+    "version" : "v23_1",
     "client_id" : "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
     "port" : 8080,
     "port_ui": 80,
-    "UA" : "UA-XXXX-XX"
+    "UA" : "UA-XXXX-XX",
+    "rate_limit": "",
+    "rate_max":  ""
 }

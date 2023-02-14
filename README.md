@@ -1,10 +1,10 @@
 # Salesforce Commerce Cloud OCAPI Proxy 
-![version](https://img.shields.io/badge/Salesforce-OCAPIProxy-blue.svg)  ![version](https://img.shields.io/badge/version-2.2.0-green.svg)
+![version](https://img.shields.io/badge/Salesforce-OCAPIProxy-blue.svg)  ![version](https://img.shields.io/badge/version-2.2.1-green.svg)
 
 
 [![NPM](https://nodei.co/npm/ocapi-proxy.png?downloads=true&downloadRank=true&stars=true)](https://nodei.co/npm/ocapi-proxy/)
 
-This project will serve as a local NodeJS based Proxy server that will forward requests to an Salesforce Commerce Cloud OCAPI instance. 
+This project will serve as a local Node.js based Proxy server that will forward requests to an Salesforce Commerce Cloud OCAPI instance. 
 This can be used for purposes such as testing 3rd party apps using OCAPI as well as integration for mobile/browser apps. 
 The configuration of site_id, client_id are configured at the proxy level rather than in the app directly. 
 
@@ -33,7 +33,7 @@ This will resolve issues with Postman not getting back a json result and aid in 
 ## Prerequisites
 ```
 Required:
-    NodeJS
+    Node.js
     Salesforce Commerce Cloud Sandbox - Configured for OCAPI
 
 Optional:
@@ -73,13 +73,16 @@ Example:
 {
     "server": "yoursandbox.demandware.net",
     "site_id": "SiteGenesis",
-    "version": "v22_10",
+    "version": "v23_1",
     "client_id": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
     "port": 8080,
     "port_ui": 80,
-    "UA": "UA-XXXX-XXXX"  //This is optional can remove or leave blank.
+    "UA": "UA-XXXX-XXXX",  //Optional: Universal Analytics ID
+    "rate_limit": "",  //Optional: 15 minutes default
+    "rate_max": "",  //Optional: number of calls that can be made
 }
-```
+```  windowMs: limit, // 15 minutes or config file entry
+        max: max, // Limit each IP to 100 requests per `window` (here, per 15 minutes)
 ## OCAPI Commands
 
 You can send OCAPI commands to your local proxy. 
@@ -151,9 +154,9 @@ The Proxy will generate logs where the current proxy has been executed in the lo
 
 ## Built With
 
-* [**NodeJS**](https://nodejs.org) 
-* [**Express**](https://expressjs.com) - Minimalist Web Framework for NodeJS
-* [**jsonfile**](https://www.npmjs.com/package/jsonfile) - read/write JSON files in NodeJS
+* [**Node.js**](https://nodejs.org) 
+* [**Express**](https://expressjs.com) - Minimalist Web Framework for Node.js
+* [**jsonfile**](https://www.npmjs.com/package/jsonfile) - read/write JSON files in Node.js
 * [**universal-analytics**](https://www.npmjs.com/package/universal-analytics) - Google Universal Analytics
 * [**open**](https://www.npmjs.com/package/open) - Open (NPM)
 * [**Mddir**](https://www.npmjs.com/package/mddir) - Mddir (NPM)
@@ -164,7 +167,6 @@ The Proxy will generate logs where the current proxy has been executed in the lo
 * **John Facey II** - *Lead*  
 [![GitHub followers](https://img.shields.io/github/followers/johnfacey.svg?label=Follow&style=social)](https://github.com/johnfacey)
 [![Twitter followers](https://img.shields.io/twitter/follow/johnfacey.svg?label=Follow&style=social)](https://twitter.com/johnfacey)
-
 [![ko-fi](https://ko-fi.com/img/githubbutton_sm.svg)](https://ko-fi.com/M4M13CMPP)
 
 ## License
@@ -176,7 +178,7 @@ See the [LICENSE.md](LICENSE.md) file for details
 ## Acknowledgments
 
 * [**Salesforce Commerce Cloud**](https://www.salesforce.com/products/commerce-cloud/overview)
-* [**NodeJS**](https://nodejs.org) 
+* [**Node.js**](https://nodejs.org) 
 * [**Visual Studio Code**](https://code.visualstudio.com)
 * [**ngrok**](https://ngrok.com)
 * [**jQuery**](https://jQuery.com)

@@ -13,7 +13,9 @@ const cors = require('cors');
 const path = __dirname + '/html/';
 const app = express();
 const admin = express();
-
+const rateLimit = require('express-rate-limit');
+let limit = "";
+let max = "";
 /**
  * OCAPI Proxy Variables 
  */
@@ -23,6 +25,8 @@ let version = "v22_4";
 let port = process.env.PORT || 8080;
 let adminPort = "";
 let UA = "";
+let rate_max = 0;
+let rate_limit = 0;
 let now = new Date();
 let loadUI = false;
 let logDate = now.getFullYear() + "-" + now.getDay() + "-" + now.getDate();
@@ -55,6 +59,8 @@ message = "Loading config file: " + file;
 console.log(message);
 writeLog(message);
 
+
+
 readConfig = () => {
     try {
         if (fs.existsSync(file)) {
@@ -78,18 +84,30 @@ readConfig = () => {
                         UA = config.UA;
                     }
 
+                    if (config.rate_limit != undefined && config.rate_limit != "") {
+                        limit = config.rate_limit;
+                    } else {
+                        limit = 15 * 60 * 1000 // 15 minutes
+                    }
+
+                    if (config.rate_max != undefined && config.rate_max != "") {
+                        max = config.rate_max;
+                    } else {
+                        max = 100;
+                    }
+
                     app.listen(port, () => {
                         return console.log('OCAPI Proxy Port: ' + port);
                     });
 
                     if (adminPort != "") {
                         admin.listen(adminPort, () => {
-                            var adminHost = 'http://localhost:'+adminPort;
+                            var adminHost = 'http://localhost:' + adminPort;
                             var message = "OCAPI UI: " + adminHost;
                             writeLog(message);
                             console.log(message);
-                    });
-                }
+                        });
+                    }
 
                     return true;
                 }
@@ -110,7 +128,7 @@ writeConfig = () => {
     var obj = {
         "server": "yoursandbox.demandware.net",
         "site_id": "SiteGenesis",
-        "version": "v22_10",
+        "version": "v23_1",
         "client_id": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
         "port": port,
         "port_ui": adminPort,
@@ -128,7 +146,7 @@ writeConfig = () => {
 };
 
 
- callbackAdmin = (error, response, body) => {
+callbackAdmin = (error, response, body) => {
     response.send("Test Callback");
 }
 
@@ -141,6 +159,8 @@ AdminCall = (req, resp) => {
     };
     request(options, callbackAdmin);
 }
+
+
 
 ProxyCall = (req, resp) => {
     var proxyRequest = req;
@@ -241,11 +261,20 @@ exports.start = () => {
     app.use(bodyParser.urlencoded({
         extended: true
     }));
+    limiter = rateLimit({
+        windowMs: limit, // 15 minutes or config file entry
+        max: max, // Limit each IP to max per windowMs
+        standardHeaders: true, // Return rate limit info in the `RateLimit-*` headers
+        legacyHeaders: false, // Disable the `X-RateLimit-*` headers
+    })
 
     app.use(cors());
     admin.use(cors());
 
-    app.all('/', jsonParser,  (request, response) => {
+    app.use(limiter);
+    admin.use(limiter);
+
+    app.all('/', jsonParser, (request, response) => {
 
         response.setHeader('Content-Type', "application/json");
         response.setHeader("Access-Control-Allow-Origin", "*");
@@ -260,7 +289,7 @@ exports.start = () => {
     admin.use(bodyParser.urlencoded({
         extended: true
     }));
-  
+
     app.use(express.static(__dirname + '/html'));
 
     admin.all('/', (request, response) => {
@@ -268,10 +297,10 @@ exports.start = () => {
         response.setHeader('Content-Type', "text/html");
         var headers = JSON.stringify(request.headers);
         var requestBody = request.body;
-        
+
         response.sendFile(path + "index.html");
     });
-   
+
     if (process.argv.slice(2) != null && process.argv.slice(2) != undefined) {
         if (process.argv.slice(2) == "loadUI") {
             loadUI = true;
