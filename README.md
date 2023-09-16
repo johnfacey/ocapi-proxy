@@ -1,5 +1,5 @@
 # Salesforce Commerce Cloud OCAPI Proxy 
-![version](https://img.shields.io/badge/Salesforce-OCAPIProxy-blue.svg)  ![version](https://img.shields.io/badge/version-2.2.1-green.svg)
+![version](https://img.shields.io/badge/Salesforce-OCAPIProxy-blue.svg)  ![version](https://img.shields.io/badge/version-2.2.2-green.svg)
 
 
 [![NPM](https://nodei.co/npm/ocapi-proxy.png?downloads=true&downloadRank=true&stars=true)](https://nodei.co/npm/ocapi-proxy/)
@@ -73,16 +73,19 @@ Example:
 {
     "server": "yoursandbox.demandware.net",
     "site_id": "SiteGenesis",
-    "version": "v23_1",
+    "version": "v23_2",
     "client_id": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
     "port": 8080,
     "port_ui": 80,
     "UA": "UA-XXXX-XXXX",  //Optional: Universal Analytics ID
     "rate_limit": "",  //Optional: 15 minutes default
     "rate_max": "",  //Optional: number of calls that can be made
+    "windowMs": limit, // 15 minutes or config file entry
+    "max": max, // Limit each IP to 100 requests per `window` (here, per 15 minutes)
 }
-```  windowMs: limit, // 15 minutes or config file entry
-        max: max, // Limit each IP to 100 requests per `window` (here, per 15 minutes)
+
+```
+
 ## OCAPI Commands
 
 You can send OCAPI commands to your local proxy. 
@@ -148,6 +151,7 @@ Within the download you'll find the following directories and files:
     |   |-- index.html
     |-- logs
 ```
+
 ## Logging
 
 The Proxy will generate logs where the current proxy has been executed in the logs directory.
