@@ -1,9 +1,1 @@
-{
-    "server":"development-na02-hbc.demandware.net",
-    "site_id":"TheBay",
-    "version":"v21_3",
-    "client_id":"74e20e81-40f4-4ad2-bb8b-b2e77f410012",
-    "port":8080,
-    "port_ui": 80,
-    "UA": "UA-XXXX-XXXX"
-}
+{"server":"yoursandbox.demandware.net","site_id":"SiteGenesis","version":"v23_2","client_id":"aaaaaaaaaaaaaaaaaaaaaaaaaaaaaa","port":8080,"port_ui":80,"UA":"UA-XXXX-XXXX","rate_limit":"","rate_max":""}

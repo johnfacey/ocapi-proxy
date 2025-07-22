@@ -2,7 +2,7 @@
 /**
  * OCAPI Proxy Constants 
  */
-const request = require('request');
+const axios = require('axios');
 const express = require('express');
 const bodyParser = require('body-parser');
 const jsonfile = require('jsonfile');
@@ -150,29 +150,35 @@ callbackAdmin = (error, response, body) => {
     response.send("Test Callback");
 }
 
-AdminCall = (req, resp) => {
+AdminCall = async (req, resp) => {
     var adminRequest = req;
     var adminResponse = resp;
     var options = {
         method: req.method,
-        body: adminRequest.body
+        url: adminRequest.url, // You may need to set the correct URL here
+        data: adminRequest.body
     };
-    request(options, callbackAdmin);
+    try {
+        const response = await axios(options);
+        callbackAdmin(null, response, response.data);
+    } catch (error) {
+        callbackAdmin(error, error.response, error.response ? error.response.data : null);
+    }
 }
 
 
 
-ProxyCall = (req, resp) => {
+ProxyCall = async (req, resp) => {
     var proxyRequest = req;
     var proxyResponse = resp;
     var callurl = "https://" + server + "/s/" + site_id + "/dw/shop/" + version + "/" + proxyRequest.headers.callurl;
     var options = {
-        url: callurl, //proxyRequest.headers.callurl,
+        url: callurl,
         method: req.method,
         headers: {
             'callurl': proxyRequest.headers.callurl
         },
-        body: JSON.stringify(proxyRequest.body)
+        data: proxyRequest.body
     };
 
     options.headers["x-dw-client-id"] = client_id;
@@ -192,13 +198,16 @@ ProxyCall = (req, resp) => {
         options.headers.ETag = proxyRequest.headers.etag;
     }
 
-    request(options, callback);
+    try {
+        const response = await axios(options);
+        callback(null, response, JSON.stringify(response.data));
+    } catch (error) {
+        callback(error, error.response, error.response ? JSON.stringify(error.response.data) : null);
+    }
     if (UA != "") {
-
         try {
             var visitor = ua(UA); //UA-XXXX-XX
             visitor.event("OCAPI", callurl).send();
-
         } catch (err) {
             console.log(err);
             writeLog(err);
