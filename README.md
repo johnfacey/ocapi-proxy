@@ -1,5 +1,5 @@
 # Salesforce Commerce Cloud OCAPI Proxy 
-![version](https://img.shields.io/badge/Salesforce-OCAPIProxy-blue.svg)  ![version](https://img.shields.io/badge/version-2.2.5-green.svg)
+![version](https://img.shields.io/badge/Salesforce-OCAPIProxy-blue.svg)  ![version](https://img.shields.io/badge/version-2.2.7-green.svg)
 
 
 [![NPM](https://nodei.co/npm/ocapi-proxy.png?downloads=true&downloadRank=true&stars=true)](https://nodei.co/npm/ocapi-proxy/)
@@ -22,6 +22,8 @@ If you are using a service such as https://ngrok.com you may need to add the url
 **NOTE:** This package only forwards OCAPI requests from one point to another. The main purpose is for routing data around CORS and is typically useful for Mobile Applications. x-dw-client-id as a header attribute must be used instead of client_id as a url parameter.
 
 ## Updates
+
+**Security fix:** Resolved [GHSA-69xg-7gfr-5vf9](https://github.com/johnfacey/ocapi-proxy/security/advisories/GHSA-69xg-7gfr-5vf9), a high-severity issue where a single unauthenticated request to the proxy's `/` route could crash the server process. See [CHANGELOG.md](./CHANGELOG.md) for details.
 
 Updated UI Interface with Request and Response sections.
 Removed Autolaunch of UI.
@@ -119,6 +121,7 @@ The Proxy will communicate with Google Universal Analytics if a "UA" attribute i
 NEW Proxy UI for testing from a web browser interface. Config attribute "port_ui" added to config.json
 
 ## Files / Links
+* [**Changelog**](./CHANGELOG.md)
 * [**Postman Collection**](./examples/OCAPI-Proxy.postman_collection.json)
 * [**Example: config.json**](./sample-config.json)
 
@@ -129,6 +132,7 @@ Within the download you'll find the following directories and files:
     |-- .gitignore
     |-- .npmignore
     |-- build.js
+    |-- CHANGELOG.md
     |-- config.json
     |-- ecosystem.config.js
     |-- libProxy.js

@@ -1,4 +1,3 @@
-
 /**
  * OCAPI Proxy Constants 
  */
@@ -198,35 +197,25 @@ ProxyCall = async (req, resp) => {
         options.headers.ETag = proxyRequest.headers.etag;
     }
 
-    try {
-        const response = await axios(options);
-        callback(null, response, JSON.stringify(response.data));
-    } catch (error) {
-        callback(error, error.response, error.response ? JSON.stringify(error.response.data) : null);
-    }
-    if (UA != "") {
-        try {
-            var visitor = ua(UA); //UA-XXXX-XX
-            visitor.event("OCAPI", callurl).send();
-        } catch (err) {
-            console.log(err);
-            writeLog(err);
-        }
-    }
-
-
-    callback = (error, response, body) => {
+    // Defined before use (was previously assigned near the bottom of this
+    // function with no var/let/const, so it was an undeclared global that
+    // did not exist yet at the point it was first called — every call threw
+    // a ReferenceError, and the one thrown inside the catch block above was
+    // unhandled, crashing the process. See GHSA-69xg-7gfr-5vf9.)
+    const callback = (error, response, body) => {
         try {
             if (!error && response.statusCode == 200) {
                 writeLog(body);
-                console.log(chalk.green(body));
+                console.log(body);
             } else {
                 //error
-                console.log(chalk.red("Check Config/Ports - " + error.code + ":" + error.message));
-                writeLog("Check Config/Ports - " + error.code + ":" + error.message);
-                jsonError = {
-                    "code": error.code,
-                    "message": error.message,
+                var errCode = error && error.code;
+                var errMessage = error && error.message;
+                console.log("Check Config/Ports - " + errCode + ":" + errMessage);
+                writeLog("Check Config/Ports - " + errCode + ":" + errMessage);
+                var jsonError = {
+                    "code": errCode,
+                    "message": errMessage,
                     "timestamp": new Date().getTime()
                 }
                 jsonError = JSON.stringify(jsonError);
@@ -253,6 +242,22 @@ ProxyCall = async (req, resp) => {
             writeLog(err);
         }
 
+    }
+
+    try {
+        const response = await axios(options);
+        callback(null, response, JSON.stringify(response.data));
+    } catch (error) {
+        callback(error, error.response, error.response ? JSON.stringify(error.response.data) : null);
+    }
+    if (UA != "") {
+        try {
+            var visitor = ua(UA); //UA-XXXX-XX
+            visitor.event("OCAPI", callurl).send();
+        } catch (err) {
+            console.log(err);
+            writeLog(err);
+        }
     }
 }
 
@@ -283,7 +288,7 @@ exports.start = () => {
     app.use(limiter);
     admin.use(limiter);
 
-    app.all('/', jsonParser, (request, response) => {
+    app.all('/', jsonParser, async (request, response) => {
 
         response.setHeader('Content-Type', "application/json");
         response.setHeader("Access-Control-Allow-Origin", "*");
@@ -291,7 +296,19 @@ exports.start = () => {
         var headers = JSON.stringify(request.headers);
         var requestBody = request.body;
 
-        ProxyCall(request, response);
+        try {
+            await ProxyCall(request, response);
+        } catch (err) {
+            // Belt-and-suspenders: ProxyCall's own try/catch should handle
+            // errors and respond via callback(), but if anything upstream
+            // ever throws again, this stops it from becoming an unhandled
+            // promise rejection that kills the whole server process.
+            console.log(err);
+            writeLog(err);
+            if (!response.headersSent) {
+                response.status(500).send(JSON.stringify({ error: "Internal proxy error" }));
+            }
+        }
 
     });
 
