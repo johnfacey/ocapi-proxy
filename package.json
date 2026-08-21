@@ -51,5 +51,8 @@
     "qs": "^6.11.0",
     "request": "^2.88.2",
     "universal-analytics": "^0.5.3"
+  },
+  "overrides": {
+    "form-data": "4.0.6"
   }
 }
