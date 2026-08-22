@@ -9,6 +9,8 @@ const fs = require('fs');
 const ua = require('universal-analytics');
 const open = require('open');
 const cors = require('cors');
+const csrf = require('csrf');
+const csrfTokens = new csrf();
 const path = __dirname + '/html/';
 const app = express();
 const admin = express();
@@ -287,6 +289,20 @@ exports.start = () => {
 
     app.use(limiter);
     admin.use(limiter);
+
+    const csrfSecret = csrfTokens.secretSync();
+    app.get('/csrf-token', (req, res) => {
+        res.json({ csrfToken: csrfTokens.create(csrfSecret) });
+    });
+    app.use((req, res, next) => {
+        const safeMethods = ['GET', 'HEAD', 'OPTIONS'];
+        if (safeMethods.includes(req.method)) return next();
+        const token = req.headers['x-csrf-token'] || (req.body && req.body._csrf);
+        if (!token || !csrfTokens.verify(csrfSecret, token)) {
+            return res.status(403).json({ error: 'Invalid CSRF token' });
+        }
+        next();
+    });
 
     app.all('/', jsonParser, async (request, response) => {
 
