@@ -1,5 +1,5 @@
 # Salesforce Commerce Cloud OCAPI Proxy 
-![version](https://img.shields.io/badge/Salesforce-OCAPIProxy-blue.svg)  ![version](https://img.shields.io/badge/version-2.2.7-green.svg)
+![version](https://img.shields.io/badge/Salesforce-OCAPIProxy-blue.svg)  ![version](https://img.shields.io/badge/version-2.2.8-green.svg)
 
 
 [![NPM](https://nodei.co/npm/ocapi-proxy.png?downloads=true&downloadRank=true&stars=true)](https://nodei.co/npm/ocapi-proxy/)
